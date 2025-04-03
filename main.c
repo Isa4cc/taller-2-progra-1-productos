@@ -7,7 +7,7 @@ int main (int argc, char *argv[]) {
     char nombre[5][30];
     int stock[5];
     float precio[5];
-    int cont=0, opc1;
+    int cont=0, opc1,len;
     float total_ganancias = 0, venta = 0;
     
     do{
@@ -29,6 +29,13 @@ int main (int argc, char *argv[]) {
                 printf("Ingrese el nombre del producto %d:\n", cont);
                 fflush(stdin);
                 fgets(nombre[cont], 30, stdin);
+
+                len = strlen(nombre[cont])-1;
+                nombre[cont][len]='\0';
+                /*la variable len almacena  mediante
+                strlen() el numero de caracteres en la cadena y
+                con -1 elimina el ultimo caracter que es salto de linea \n
+                para luego borrar el ultimo caracter con '\0'*/
                 printf("Ingrese el stock del producto %d:\n", cont);
                 scanf("%d", &stock[cont]);
                 printf("Ingrese el precio del producto %d:\n", cont);
@@ -42,7 +49,7 @@ int main (int argc, char *argv[]) {
             int aux, cantidad;
             printf("Seleccione el número de producto a vender: \n");
             printf("#\t\tID\t\tNombre\t\tStock\t\tPrecio\n");
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < cont; i++)
             {
                 printf("%d\t\t%s\t\t%s\t\t%d\t\t%.2f\n", i, id[i], nombre[i], stock[i], precio[i]);
             }
