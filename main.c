@@ -60,7 +60,7 @@ int main (int argc, char *argv[]) {
             if(cantidad<=stock[aux])
             {
                 venta = cantidad*precio[aux];
-                printf("El valor de la venta es: %f\n", venta);
+                printf("El valor de la venta es: %.2f\n", venta);
                 stock[aux] -= cantidad;
                 if(cantidad>20)
                 {
@@ -69,9 +69,53 @@ int main (int argc, char *argv[]) {
                     printf("El valor de la venta con descuento es: %.2f \n", venta);
                 }
                 total_ganancias+=venta;
+            }else{
+                printf("No existe suficiente stock para la venta..\n");
             }
             break;
-        
+        case 3:
+            printf("Seleccione el número de producto a reabastecer: \n");
+            printf("#\t\tID\t\tNombre\t\tStock\t\tPrecio\n");
+            for (int i = 0; i < cont; i++)
+            {
+                printf("%d\t\t%s\t\t%s\t\t%d\t\t%.2f\n", i, id[i], nombre[i], stock[i], precio[i]);
+            }
+            printf(">> ");
+            scanf("%d", &aux);
+            printf("Ingrese la cantidad de producto con ID:%s a reabastecer: ", id[aux]);
+            scanf("%d", &cantidad);
+            if (cantidad>0)
+            {
+                stock[aux]+=cantidad;
+                printf("El nuevo stock es %d\n", stock[aux]);
+            }
+            
+            break;
+        case 4:
+            char nombuscar[30];
+            int f=0;
+            printf("Ingrese el nombre del producto para ver sus detalles: \n");
+            fflush(stdin);
+            fgets(nombuscar, 30, stdin);
+            len = strlen(nombuscar)-1;
+            nombuscar[len]= '\0';
+            for (int i = 0; i < cont; i++)
+            {
+                if(strcmp(nombre[i], nombuscar)==0){
+                    printf("#\t\tID\t\tNombre\t\tStock\t\tPrecio\n");
+                    printf("%d\t\t%s\t\t%s\t\t%d\t\t%.2f\n", i, id[i], nombre[i], stock[i], precio[i]);
+                    f=1;
+                }
+            }
+            if(f==0)
+            {
+                printf("No existe el producto en stock\n");
+            }
+            
+            break;
+        case 5:
+            printf("El total de ganancias es de: %.2f", total_ganancias);
+            break;
         default:
             break;
         }
